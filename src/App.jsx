@@ -9,6 +9,20 @@ function App() {
     { name: "Latte", price: 1.0 },
     { name: "Pasta", price: 0.7 },
   ];
+  const [addedProducts, setAddedProsducts] = useState([]);
+  const addToCart = (product) => {
+    const productAlredyAdded = addedProducts.some(
+      (p) => p.name === product.name
+    );
+    if (productAlredyAdded) {
+      return;
+    }
+    const productToAdd = {
+      ...product,
+      quantity: 1,
+    };
+    setAddedProsducts((curr) => [...curr, productToAdd]);
+  };
 
   return (
     <>
@@ -18,10 +32,26 @@ function App() {
           <li key={i}>
             <p>
               {p.name} (€{p.price.toFixed(2)})
+              <button onClick={() => addToCart(p)}>Aggiungi al carrello</button>
             </p>
           </li>
         ))}
       </ul>
+      {addedProducts.length > 0 && (
+        <>
+          <h2>Carrello:</h2>
+          <ul>
+            {addedProducts.map((p, i) => (
+              <li key={i}>
+                <p>
+                  {p.quantity} x {p.name}
+                  (€{p.price.toFixed(2)})
+                </p>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </>
   );
 }
