@@ -15,8 +15,10 @@ function App() {
       <h1>Prodotti tra cui scegliere:</h1>
       <ul>
         {products.map((p, i) => (
-          <li>
-           <p>{p.name} (€{p.price.toFixed(2)})</p>
+          <li key={i}>
+            <p>
+              {p.name} (€{p.price.toFixed(2)})
+            </p>
           </li>
         ))}
       </ul>
