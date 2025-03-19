@@ -10,11 +10,23 @@ function App() {
     { name: "Pasta", price: 0.7 },
   ];
   const [addedProducts, setAddedProsducts] = useState([]);
+  const updateProductQuantity=(name,quantity) => {
+    setAddedProsducts(curr => curr.map(p => {
+      if(p.name === name){
+return{...p,quantity}
+      }
+      return p;
+    }))
+  }
   const addToCart = (product) => {
-    const productAlredyAdded = addedProducts.some(
+    const productAlredyAdded = addedProducts.find(
       (p) => p.name === product.name
     );
     if (productAlredyAdded) {
+      updateProductQuantity(
+        productAlredyAdded.name,
+        productAlredyAdded.quantity + 1
+      );
       return;
     }
     const productToAdd = {
